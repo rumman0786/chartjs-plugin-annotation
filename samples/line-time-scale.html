@@ -37,49 +37,53 @@
 		function newDateString(days) {
 			return moment().add(days, 'd').format(timeFormat);
 		}
+		var labels_arr = ["January", "February", "March", "April", "May", "June",
+						  "July", "August", "September", "October", "November", "December"];
 
 		var color = Chart.helpers.color;
 		var config = {
 			type: 'line',
 			data: {
-				labels: [ // Date Objects
-					100,200,300,400,500, 600
-				],
+				labels: labels_arr,
 				datasets: [{
 					label: 'My First dataset',
 					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 					borderColor: window.chartColors.red,
 					fill: false,
 					data: [
-						100,10,50,40,200,30
+						   {x:0, y:35}, {x:1,y:15}, {x: 2, y:25}, {x:3, y:35}, {x:4,y:15}, {x: 5, y:25}, {x: 6, y:70},
+						   {x: 7, y:30}, {x: 8, y:20}, {x: 9, y:15}, {x: 10, y:40}, {x: 11, y:35}
 					],
-				}, {
-					label: 'My Second dataset',
-					backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-					borderColor: window.chartColors.blue,
-					fill: false,
-					data: [
-						50,70,30,100,200,60
-					],
-				}, {
-					label: 'Dataset with point data',
-					backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-					borderColor: window.chartColors.green,
-					fill: false,
-					data: [{
-						x: newDateString(0),
-						y: randomScalingFactor()
-					}, {
-						x: newDateString(5),
-						y: randomScalingFactor()
-					}, {
-						x: newDateString(7),
-						y: randomScalingFactor()
-					}, {
-						x: newDateString(15),
-						y: randomScalingFactor()
-					}],
-				}]
+				}
+				// ,
+				// {
+				// 	label: 'My Second dataset',
+				// 	backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+				// 	borderColor: window.chartColors.blue,
+				// 	fill: false,
+				// 	data: [
+				// 		50,70,30,100,200,60
+				// 	],
+				// }, {
+				// 	label: 'Dataset with point data',
+				// 	backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+				// 	borderColor: window.chartColors.green,
+				// 	fill: false,
+				// 	data: [{
+				// 		x: newDateString(0),
+				// 		y: randomScalingFactor()
+				// 	}, {
+				// 		x: newDateString(5),
+				// 		y: randomScalingFactor()
+				// 	}, {
+				// 		x: newDateString(7),
+				// 		y: randomScalingFactor()
+				// 	}, {
+				// 		x: newDateString(15),
+				// 		y: randomScalingFactor()
+				// 	}],
+				// }
+				]
 			},
 			options: {
 				title: {
@@ -96,6 +100,13 @@
 						scaleLabel: {
 							display: true,
 							labelString: 'Date'
+						},
+						type: 'linear',
+						ticks: {
+							stepSize: 1,
+							callback: (index) => {
+							  return labels_arr[index];
+							}
 						}
 					}],
 					yAxes: [{
@@ -136,94 +147,95 @@
 						type: 'line',
 						mode: 'vertical',
 						scaleID: 'x-axis-0',
-						value: 200,
+						value: 4.2,
 						// endValue: 110,
-						borderColor: 'transparent',
+						borderColor: 'black',
 						borderWidth: 5,
 						label: {
 							// xAdjust: 100,
-							backgroundColor: 'transparent',
+							backgroundColor: 'red',
 							content: 'Test Label',
 							enabled: true
-						},
-						onMouseenter: function(e) {
-					      console.log("onMouseenter", e, this);
-					      this.options.borderColor = "rgba(0,0,255,0.8)"; //transparent to make line transparent only label will be shown then.
-					      this.options.label.backgroundColor = 'rgba(0,0,0,0.8)';
-					      myLine.update();
-					    },
-					    onMouseleave: function(e) {
-					      console.log("onMouseleave", e);
-					      this.options.borderColor = "transparent";
-					      this.options.label.backgroundColor = 'transparent';
-					      myLine.update();
-					    },
+						}
+						,
+						// onMouseenter: function(e) {
+					 //      console.log("onMouseenter", e, this);
+					 //      this.options.borderColor = "rgba(0,0,255,0.8)"; //transparent to make line transparent only label will be shown then.
+					 //      this.options.label.backgroundColor = 'rgba(0,0,0,0.8)';
+					 //      myLine.update();
+					 //    },
+					 //    onMouseleave: function(e) {
+					 //      console.log("onMouseleave", e);
+					 //      this.options.borderColor = "transparent";
+					 //      this.options.label.backgroundColor = 'transparent';
+					 //      myLine.update();
+					 //    },
 						onClick: function(e) {
 							// The annotation is is bound to the `this` variable
 							console.log('Annotation', e.type, this);
 						}
 					},
 
-					{
-						type: 'box',
-						xScaleID: 'x-axis-0',
-						yScaleID: 'y-axis-0',
-						xMin: 300,
-						xMax: 400,
-						yMin: 100,
-						yMax: 150,
-						backgroundColor: 'rgba(101, 33, 171, 0.5)',
-						borderColor: 'rgb(101, 33, 171)',
-						borderWidth: 1,
-						label: {
-							backgroundColor: 'red',
-							content: 'Test Label for Box',
-							enabled: true
-						},
-						onClick: function(e) {
-							console.log('Box', e.type, this);
-						}
-					},
+					// {
+					// 	type: 'box',
+					// 	xScaleID: 'x-axis-0',
+					// 	yScaleID: 'y-axis-0',
+					// 	xMin: 300,
+					// 	xMax: 400,
+					// 	yMin: 100,
+					// 	yMax: 150,
+					// 	backgroundColor: 'rgba(101, 33, 171, 0.5)',
+					// 	borderColor: 'rgb(101, 33, 171)',
+					// 	borderWidth: 1,
+					// 	label: {
+					// 		backgroundColor: 'red',
+					// 		content: 'Test Label for Box',
+					// 		enabled: true
+					// 	},
+					// 	onClick: function(e) {
+					// 		console.log('Box', e.type, this);
+					// 	}
+					// },
 
-					{
-						id: 'vline2',
-						type: 'line',
-						mode: 'horizontal',
-						scaleID: 'y-axis-0',
-						value: 130,
-						borderColor: 'transparent',
-						borderWidth: 5,
-						label: {
-							backgroundColor: 'red',
-							content: 'This is the first part of the sentence',
-							position: 'top',
-							enabled: true
-						},
-						onClick: function(e) {
-							// The annotation is is bound to the `this` variable
-							console.log('Annotation', e.type, this);
-						}
-					},
-					{
-						id: 'vline3',
-						type: 'line',
-						mode: 'horizontal',
-						scaleID: 'y-axis-0',
-						value: 130,
-						borderColor: 'transparent',
-						borderWidth: 5,
-						label: {
-							yAdjust: 20,
-							backgroundColor: 'red',
-							content: 'and this is the second one',
-							position: 'top',
-							enabled: true
-						},
-						onClick: function(e) {
-							// The annotation is is bound to the `this` variable
-							console.log('Annotation', e.type, this);
-						}
-					}
+					// {
+					// 	id: 'vline2',
+					// 	type: 'line',
+					// 	mode: 'horizontal',
+					// 	scaleID: 'y-axis-0',
+					// 	value: 130,
+					// 	borderColor: 'transparent',
+					// 	borderWidth: 5,
+					// 	label: {
+					// 		backgroundColor: 'red',
+					// 		content: 'This is the first part of the sentence',
+					// 		position: 'top',
+					// 		enabled: true
+					// 	},
+					// 	onClick: function(e) {
+					// 		// The annotation is is bound to the `this` variable
+					// 		console.log('Annotation', e.type, this);
+					// 	}
+					// },
+					// {
+					// 	id: 'vline3',
+					// 	type: 'line',
+					// 	mode: 'horizontal',
+					// 	scaleID: 'y-axis-0',
+					// 	value: 130,
+					// 	borderColor: 'transparent',
+					// 	borderWidth: 5,
+					// 	label: {
+					// 		yAdjust: 20,
+					// 		backgroundColor: 'red',
+					// 		content: 'and this is the second one',
+					// 		position: 'top',
+					// 		enabled: true
+					// 	},
+					// 	onClick: function(e) {
+					// 		// The annotation is is bound to the `this` variable
+					// 		console.log('Annotation', e.type, this);
+					// 	}
+					// }
 				]
 				}
 			},
