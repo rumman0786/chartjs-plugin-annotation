@@ -106,8 +106,10 @@
 					}]
 				},
 				annotation: {
-					drawTime: 'afterDatasetsDraw',
-					events: ['click'],
+					// drawTime: 'afterDatasetsDraw',
+					drawTime: "afterDraw",
+					events: ['click','mouseenter','mouseleave'],
+					// events: ['click'],
 					annotations: [
 
 					// {
@@ -134,16 +136,28 @@
 						type: 'line',
 						mode: 'vertical',
 						scaleID: 'x-axis-0',
-						value: 100,
+						value: 200,
 						// endValue: 110,
-						borderColor: 'black',
+						borderColor: 'transparent',
 						borderWidth: 5,
 						label: {
-							xAdjust: 100,
-							backgroundColor: 'red',
+							// xAdjust: 100,
+							backgroundColor: 'transparent',
 							content: 'Test Label',
 							enabled: true
 						},
+						onMouseenter: function(e) {
+					      console.log("onMouseenter", e, this);
+					      this.options.borderColor = "rgba(0,0,255,0.8)"; //transparent to make line transparent only label will be shown then.
+					      this.options.label.backgroundColor = 'rgba(0,0,0,0.8)';
+					      myLine.update();
+					    },
+					    onMouseleave: function(e) {
+					      console.log("onMouseleave", e);
+					      this.options.borderColor = "transparent";
+					      this.options.label.backgroundColor = 'transparent';
+					      myLine.update();
+					    },
 						onClick: function(e) {
 							// The annotation is is bound to the `this` variable
 							console.log('Annotation', e.type, this);
@@ -181,7 +195,27 @@
 						borderWidth: 5,
 						label: {
 							backgroundColor: 'red',
-							content: 'Actual Behaviour: The chart generates ticks to 500 till the line is visible (Incorrect)',
+							content: 'This is the first part of the sentence',
+							position: 'top',
+							enabled: true
+						},
+						onClick: function(e) {
+							// The annotation is is bound to the `this` variable
+							console.log('Annotation', e.type, this);
+						}
+					},
+					{
+						id: 'vline3',
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 130,
+						borderColor: 'transparent',
+						borderWidth: 5,
+						label: {
+							yAdjust: 20,
+							backgroundColor: 'red',
+							content: 'and this is the second one',
 							position: 'top',
 							enabled: true
 						},
